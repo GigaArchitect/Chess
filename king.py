@@ -4,7 +4,6 @@ class king :
         self.color = str(color)
         self.position = position
 
-
     def move(self,current_pos):
         moves = []
         ch = current_pos[0]
@@ -58,8 +57,3 @@ class king :
             moves.append(f"{pos_letters[pos_letters.index(ch)+1]}{nm-1}")
 
         return moves
-
-kk = king("black")
-print(kk.move("e8"))
-
-#valid king moves

@@ -48,6 +48,3 @@ class knight :
             moves.append(f"{pos_letters[pos_letters.index(ch)-1]}{nm-2}")
 
         return moves
-
-kk = knight("black")
-print(kk.move('b1'))

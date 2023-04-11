@@ -25,9 +25,3 @@ class bishop :
                 continue
             moves.append(f"{pos_letters[pos_letters.index(ch)-i]}{nm+i}")
         return moves
-
-kk = bishop("black")
-print(set(kk.move("d4")))
-
-
-#Bishop Moves Are Validated 

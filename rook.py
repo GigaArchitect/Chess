@@ -39,5 +39,3 @@ class rook :
 
         return moves
 
-kk = rook("black")
-print(kk.move("h1"))

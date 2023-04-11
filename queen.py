@@ -49,6 +49,3 @@ class queen :
         
         return moves
 
-
-
-#Bishop Moves Are Validated 
