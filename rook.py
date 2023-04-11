@@ -24,12 +24,12 @@ class rook :
             #Right
             for i in range(9):
                 if pos_letters.index(ch)+i > 7 :
-                    break
+                    continue
                 moves.append(f"{pos_letters[pos_letters.index(ch)+i]}{nm}")
             #left
             for i in range(9):
                 if pos_letters.index(ch)+i < 0 :
-                    break
+                    continue
                 moves.append(f"{pos_letters[pos_letters.index(ch)-i]}{nm}")
 
         return moves
