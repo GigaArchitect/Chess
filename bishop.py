@@ -3,7 +3,6 @@ class bishop :
     def __init__(self,color) :
         self.color = str(color)
 
-
     def move(self,current_pos):
         moves = []
         ch = current_pos[0]
@@ -24,12 +23,10 @@ class bishop :
             if pos_letters.index(ch)-i < 0 or nm+i > 8 :
                 continue
             moves.append(f"{pos_letters[pos_letters.index(ch)-i]}{nm+i}")
-        
-
         return moves
 
 kk = bishop("black")
-print(set(kk.move("f1")))
+print(set(kk.move("d4")))
 
 
 #Bishop Moves Are Validated 
