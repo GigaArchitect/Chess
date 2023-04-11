@@ -17,9 +17,13 @@ class rook :
         else :
             #Forward
             for i in range(9):
+                if nm + i > 8 :
+                    continue
                 moves.append(f"{pos_letters[pos_letters.index(ch)]}{nm+i}")
             #Back
             for i in range(9):
+                if nm - i < 1 :
+                    continue
                 moves.append(f"{pos_letters[pos_letters.index(ch)]}{nm-i}")
             #Right
             for i in range(9):
