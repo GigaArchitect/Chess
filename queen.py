@@ -1,7 +1,8 @@
 pos_letters = ['a','b','c','d','e','f','g','h']
 class queen :
-    def __init__(self,color) :
+    def __init__(self,color,position) :
         self.color = str(color)
+        self.position = position
 
     def move(self,current_pos):
         moves = []
@@ -48,9 +49,6 @@ class queen :
         
         return moves
 
-kk = queen("black")
-kk.move("d1").sort()
-print(set(kk.move("d1")))
 
 
 #Bishop Moves Are Validated 
