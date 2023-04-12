@@ -18,10 +18,17 @@ compelete_pos_map = {}
 pos_letters = ['a','b','c','d','e','f','g','h']
 
 def print_board() :
-    for i in range(8): 
+    for i in range(8):
+        print(f"{i}  ",end=" ") 
         for j in range(8):
-            print(compelete_pos_map[f"{pos_letters[j]}"][i], end=" ")
-        print("\n", end="")
+            if compelete_pos_map[f"{pos_letters[j]}"][i] == None:
+                print(" ", end="")
+            else:
+                print(compelete_pos_map[f"{pos_letters[j]}"][i], end=" ")
+        print("\n", end=" ")
+    print("\n", end="     ")
+    for i in pos_letters:
+        print(f"{i.upper()}",end=" ")
 
 def change_pos(s, d):
     ch = d[0]
