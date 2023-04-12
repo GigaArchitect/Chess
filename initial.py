@@ -12,6 +12,12 @@ stc.update_engine_parameters({"Hash": 1024, "UCI_Chess960": "true"})
 stc.set_elo_rating(1000)
 stc.set_depth(15)
 
+
+
+
+
+
+
 compelete_pos_map = {}
 pos_letters = ['a','b','c','d','e','f','g','h']
 
@@ -73,18 +79,33 @@ while True :
                 continue
         print(valid)
         dis = input("Enter Distenation : ")
+
         if not stc.is_move_correct(f"{cur}{dis}") :
             print("not a valid move")
             continue
+        # Found in the middle of the Documentation :
+        #In Chess960 mode of stockfish Castling is made by making king goto rook position
+        #check for castle move
+        if f"{cur}{dis}" == "e1h1":
+            compelete_pos_map["h"][abs(int(1)-1-7)] = None
+            compelete_pos_map["f"][abs(int(1)-1-7)] = Rook("w","f1")
+            
+
         en_passant_flag = stc.will_move_be_a_capture(f"{cur}{dis}") 
         if en_passant_flag == "EN_PASSANT":
             compelete_pos_map[f"{dis[0]}"][abs(int(dis[1])-1-7)-1] = None
-
+        
         stc.make_moves_from_current_position([f"{cur}{dis}"])
+
+        if f"{cur}{dis}" == "e1h1":
+            change_pos(cur,"g1")
+            turn="black"
+            continue
+
         change_pos(cur,dis)
         turn = "black"
     else :
-        print("logging")
+        print("\n AI move V")
         mv = stc.get_best_move_time(1000)
         en_passant_flag = stc.will_move_be_a_capture(f"{mv[0:2]}{mv[2:]}")
         if en_passant_flag == "EN_PASSANT":
