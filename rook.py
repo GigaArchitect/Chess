@@ -1,10 +1,15 @@
 pos_letters = ['a','b','c','d','e','f','g','h']
-class rook :
+class Rook :
     def __init__(self,color,position) :
         self.color = str(color)
         self.position = position
         self.moved = 1
 
+    def __repr__(self) -> str:
+        if self.color == "b":
+            return "rr"
+        else:
+            return "R"
 
     def move(self,current_pos):
         moves = []

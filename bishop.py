@@ -1,9 +1,16 @@
 pos_letters = ['a','b','c','d','e','f','g','h']
-class bishop :
+class Bishop :
+
     def __init__(self,color,position) :
-        self.color = str(color)
+        self.color = color
         self.position = position
 
+    def __repr__(self) -> str:
+        if self.color == "b":
+            return "b"
+        else:
+            return "B"
+    
     def move(self,current_pos):
         moves = []
         ch = current_pos[0]

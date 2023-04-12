@@ -1,8 +1,14 @@
 pos_letters = ['a','b','c','d','e','f','g','h']
-class queen :
+class Queen :
     def __init__(self,color,position) :
         self.color = str(color)
         self.position = position
+
+    def __repr__(self) -> str:
+        if self.color == "b":
+            return "q"
+        else:
+            return "Q"
 
     def move(self,current_pos):
         moves = []

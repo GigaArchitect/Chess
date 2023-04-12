@@ -1,4 +1,4 @@
-#import pygame as pg
+import pygame as pg
 import stockfish as st 
 from sys import exit
 stc = st.Stockfish(path="/usr/bin/stockfish")
@@ -9,19 +9,19 @@ stc.set_depth(15)
 
 print(stc.get_board_visual())
 
-# pg.init()
-# screen = pg.display.set_mode((600,600))
+pg.init()
+screen = pg.display.set_mode((600,600))
 
-# pg.display.set_caption("Chess")
+pg.display.set_caption("Chess")
 
-# board_surface = pg.transform.scale(pg.image.load('./img/board.png'), (600,600))
+board_surface = pg.transform.scale(pg.image.load('./img/board.png'), (600,600))
 
-# while True :
-#     for event in pg.event.get():
-#         if event.type == pg.QUIT :
-#             pg.quit()
-#             exit()
-#     screen.blit(board_surface,(0,0))
-#     pg.display.update()
-#     pg.time.Clock().tick(60)
+while True :
+    for event in pg.event.get():
+        if event.type == pg.QUIT :
+            pg.quit()
+            exit()
+    screen.blit(board_surface,(0,0))
+    pg.display.update()
+    pg.time.Clock().tick(60)
 
