@@ -4,6 +4,8 @@ class Pawn :
         self.color = str(color).lower()
         self.position = position
         self.moved = 0
+        self.en_passant = 0
+
 
     def __repr__(self) -> str:
         if self.color == "b":

@@ -12,8 +12,6 @@ stc.update_engine_parameters({"Hash": 1024, "UCI_Chess960": "true"})
 stc.set_elo_rating(1000)
 stc.set_depth(15)
 
-
-
 compelete_pos_map = {}
 pos_letters = ['a','b','c','d','e','f','g','h']
 
@@ -61,6 +59,7 @@ for i in range(8): #char
         compelete_pos_map[f"{pos_letters[i]}"].append(matrix[j][i])
 
 print_board()
+
 turn = "white"
 while True :
     if turn == "white":
@@ -77,11 +76,20 @@ while True :
         if not stc.is_move_correct(f"{cur}{dis}") :
             print("not a valid move")
             continue
+        en_passant_flag = stc.will_move_be_a_capture(f"{cur}{dis}") 
+        if en_passant_flag == "EN_PASSANT":
+            compelete_pos_map[f"{dis[0]}"][abs(int(dis[1])-1-7)-1] = None
+
         stc.make_moves_from_current_position([f"{cur}{dis}"])
         change_pos(cur,dis)
         turn = "black"
     else :
+        print("logging")
         mv = stc.get_best_move_time(1000)
+        en_passant_flag = stc.will_move_be_a_capture(f"{mv[0:2]}{mv[2:]}")
+        if en_passant_flag == "EN_PASSANT":
+            compelete_pos_map[f"{mv[2]}"][abs(int(mv[3])-1-7)+1] = None
         stc.make_moves_from_current_position([mv])
         change_pos(mv[0:2],mv[2:])
         turn = "white"
+        
