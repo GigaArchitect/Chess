@@ -18,15 +18,16 @@ compelete_pos_map = {}
 pos_letters = ['a','b','c','d','e','f','g','h']
 
 def print_board() :
+    print("\n\n")
     for i in range(8):
-        print(f"{i}  ",end=" ") 
+        print(f"{abs(i-1-7)} ",end="   ") 
         for j in range(8):
             if compelete_pos_map[f"{pos_letters[j]}"][i] == None:
-                print(" ", end="")
+                print(" ", end=" ")
             else:
                 print(compelete_pos_map[f"{pos_letters[j]}"][i], end=" ")
         print("\n", end=" ")
-    print("\n", end="     ")
+    print("\n", end="      ")
     for i in pos_letters:
         print(f"{i.upper()}",end=" ")
 
@@ -62,19 +63,25 @@ for i in range(8): #char
 print_board()
 turn = "white"
 while True :
-    cur = input("Enter Your position Before change 2chars like -- >[d2] : ")
-    sug_pei = compelete_pos_map[cur[0]][abs(int(cur[1])-1-7)]
-    valid = []
-    for i in sug_pei.move(sug_pei.position):
-        if stc.is_move_correct(f"{cur}{i}"):
-            valid.append(i)
-        else :
+    if turn == "white":
+        cur = input("Enter Your position Before change 2chars like -- >[d2] : ")
+        sug_pei = compelete_pos_map[cur[0]][abs(int(cur[1])-1-7)]
+        valid = []
+        for i in sug_pei.move(sug_pei.position):
+            if stc.is_move_correct(f"{cur}{i}"):
+                valid.append(i)
+            else :
+                continue
+        print(valid)
+        dis = input("Enter Distenation : ")
+        if not stc.is_move_correct(f"{cur}{dis}") :
+            print("not a valid move")
             continue
-    print(valid)
-    dis = input("Enter Distenation : ")
-
-    if not stc.is_move_correct(f"{cur}{dis}") :
-        print("not a valid move")
-        continue
-    stc.make_moves_from_current_position([f"{cur}{dis}"])
-    change_pos(cur,dis)
+        stc.make_moves_from_current_position([f"{cur}{dis}"])
+        change_pos(cur,dis)
+        turn = "black"
+    else :
+        mv = stc.get_best_move_time(1000)
+        stc.make_moves_from_current_position([mv])
+        change_pos(mv[0:2],mv[2:])
+        turn = "white"
