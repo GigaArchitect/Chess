@@ -5,6 +5,8 @@ from pawn import Pawn
 from queen import Queen
 from rook import Rook
 import stockfish as st 
+import pygame as pg
+from sys import exit
 
 stc = st.Stockfish(path="/usr/bin/stockfish")
 stc.update_engine_parameters({"Hash": 1024, "UCI_Chess960": "true"})
@@ -12,13 +14,8 @@ stc.update_engine_parameters({"Hash": 1024, "UCI_Chess960": "true"})
 stc.set_elo_rating(1000)
 stc.set_depth(15)
 
-
-
-
-
-
-
 compelete_pos_map = {}
+
 pos_letters = ['a','b','c','d','e','f','g','h']
 
 def print_board() :
@@ -66,8 +63,61 @@ for i in range(8): #char
 
 print_board()
 
+pg.init()
+screen = pg.display.set_mode((600,600))
+pg.display.set_caption("Chess")
+board_surface = pg.image.load('./img/board.png')
+clock = pg.time.Clock()
+board_surface = pg.transform.scale(board_surface,(600,600))
 turn = "white"
 while True :
+    for event in pg.event.get():
+        if event.type == pg.QUIT:
+            pg.quit()
+    
+    screen.blit(board_surface,(0,0))
+    x = 0
+    for i in range(8):
+            y = 0
+            for j in range(8):
+                ll = (y,x)
+                if compelete_pos_map[f"{pos_letters[j]}"][i] == None:
+                    screen.blit(pg.transform.scale(pg.image.load('./img/transparent.png'),(70,70)),ll)
+                elif isinstance(compelete_pos_map[f"{pos_letters[j]}"][i],King):
+                    if compelete_pos_map[f"{pos_letters[j]}"][i].color == "b":
+                        screen.blit(pg.transform.scale(pg.image.load('./img/black_king.png'),(70,70)),ll)
+                    else :
+                        screen.blit(pg.transform.scale(pg.image.load('./img/white_king.png'),(70,70)),ll)
+                elif isinstance(compelete_pos_map[f"{pos_letters[j]}"][i],Bishop):
+                    if compelete_pos_map[f"{pos_letters[j]}"][i].color == "b":
+                        screen.blit(pg.transform.scale(pg.image.load('./img/black_bishop.png'),(70,70)),ll)
+                    else :
+                        screen.blit(pg.transform.scale(pg.image.load('./img/white_bishop.png'),(70,70)),ll)
+                elif isinstance(compelete_pos_map[f"{pos_letters[j]}"][i],Pawn):
+                    if compelete_pos_map[f"{pos_letters[j]}"][i].color == "b":
+                        screen.blit(pg.transform.scale(pg.image.load('./img/black_pawn.png'),(70,70)),ll)
+                    else :
+                        screen.blit(pg.transform.scale(pg.image.load('./img/white_pawn.png'),(70,70)),ll)
+                elif isinstance(compelete_pos_map[f"{pos_letters[j]}"][i],Queen):
+                    if compelete_pos_map[f"{pos_letters[j]}"][i].color == "b":
+                        screen.blit(pg.transform.scale(pg.image.load('./img/black_queen.png'),(70,70)),ll)
+                    else :
+                        screen.blit(pg.transform.scale(pg.image.load('./img/white_queen.png'),(70,70)),ll)
+                elif isinstance(compelete_pos_map[f"{pos_letters[j]}"][i],Knight):
+                    if compelete_pos_map[f"{pos_letters[j]}"][i].color == "b":
+                        screen.blit(pg.transform.scale(pg.image.load('./img/black_knight.png'),(70,70)),ll)
+                    else :
+                        screen.blit(pg.transform.scale(pg.image.load('./img/white_knight.png'),(70,70)),ll)
+                elif isinstance(compelete_pos_map[f"{pos_letters[j]}"][i],Rook):
+                    if compelete_pos_map[f"{pos_letters[j]}"][i].color == "b":
+                        screen.blit(pg.transform.scale(pg.image.load('./img/black_rook.png'),(70,70)),ll)
+                    else :
+                        screen.blit(pg.transform.scale(pg.image.load('./img/white_rook.png'),(70,70)),ll)
+                y += 75
+            x += 75
+    pg.display.update()
+    clock.tick(60)
+
     if turn == "white":
         cur = input("Enter Your position Before change 2chars like -- >[d2] : ")
         sug_pei = compelete_pos_map[cur[0]][abs(int(cur[1])-1-7)]
@@ -105,7 +155,7 @@ while True :
         change_pos(cur,dis)
         turn = "black"
     else :
-        print("\n AI move V")
+        # print("\n AI move V")
         mv = stc.get_best_move_time(1000)
         en_passant_flag = stc.will_move_be_a_capture(f"{mv[0:2]}{mv[2:]}")
         if en_passant_flag == "EN_PASSANT":

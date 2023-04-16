@@ -3,7 +3,7 @@ class Rook :
     def __init__(self,color,position) :
         self.color = str(color)
         self.position = position
-        self.moved = 1
+        self.moved = 0
 
     def __repr__(self) -> str:
         if self.color == "b":

@@ -7,7 +7,6 @@ stc.update_engine_parameters({"Hash": 1024, "UCI_Chess960": "true"})
 stc.set_elo_rating(1000)
 stc.set_depth(15)
 
-print(stc.get_board_visual())
 
 pg.init()
 screen = pg.display.set_mode((600,600))
@@ -24,4 +23,3 @@ while True :
     screen.blit(board_surface,(0,0))
     pg.display.update()
     pg.time.Clock().tick(60)
-
