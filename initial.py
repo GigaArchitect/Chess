@@ -64,11 +64,14 @@ for i in range(8): #char
 print_board()
 
 pg.init()
-screen = pg.display.set_mode((600,600))
+screen = pg.display.set_mode((600,700))
 pg.display.set_caption("Chess")
 board_surface = pg.image.load('./img/board.png')
 clock = pg.time.Clock()
 board_surface = pg.transform.scale(board_surface,(600,600))
+
+letters = pg.transform.scale(pg.image.load('./img/text.png'),(600,60))
+
 turn = "white"
 while True :
     
@@ -77,44 +80,46 @@ while True :
             pg.quit()
     
     screen.blit(board_surface,(0,0))
+    screen.blit(letters, (0,600))
     x = 0
     
     for i in range(8):
             y = 0
             for j in range(8):
                 ll = (y,x)
+                scale  = (70,70)
                 if compelete_pos_map[f"{pos_letters[j]}"][i] == None:
-                    screen.blit(pg.transform.scale(pg.image.load('./img/transparent.png'),(70,70)),ll)
+                    screen.blit(pg.transform.scale(pg.image.load('./img/transparent.png'),scale),ll)
                 elif isinstance(compelete_pos_map[f"{pos_letters[j]}"][i],King):
                     if compelete_pos_map[f"{pos_letters[j]}"][i].color == "b":
-                        screen.blit(pg.transform.scale(pg.image.load('./img/black_king.png'),(70,70)),ll)
+                        screen.blit(pg.transform.scale(pg.image.load('./img/black_king.png'),scale),ll)
                     else :
-                        screen.blit(pg.transform.scale(pg.image.load('./img/white_king.png'),(70,70)),ll)
+                        screen.blit(pg.transform.scale(pg.image.load('./img/white_king.png'),scale),ll)
                 elif isinstance(compelete_pos_map[f"{pos_letters[j]}"][i],Bishop):
                     if compelete_pos_map[f"{pos_letters[j]}"][i].color == "b":
-                        screen.blit(pg.transform.scale(pg.image.load('./img/black_bishop.png'),(70,70)),ll)
+                        screen.blit(pg.transform.scale(pg.image.load('./img/black_bishop.png'),scale),ll)
                     else :
-                        screen.blit(pg.transform.scale(pg.image.load('./img/white_bishop.png'),(70,70)),ll)
+                        screen.blit(pg.transform.scale(pg.image.load('./img/white_bishop.png'),scale),ll)
                 elif isinstance(compelete_pos_map[f"{pos_letters[j]}"][i],Pawn):
                     if compelete_pos_map[f"{pos_letters[j]}"][i].color == "b":
-                        screen.blit(pg.transform.scale(pg.image.load('./img/black_pawn.png'),(70,70)),ll)
+                        screen.blit(pg.transform.scale(pg.image.load('./img/black_pawn.png'),scale),ll)
                     else :
-                        screen.blit(pg.transform.scale(pg.image.load('./img/white_pawn.png'),(70,70)),ll)
+                        screen.blit(pg.transform.scale(pg.image.load('./img/white_pawn.png'),scale),ll)
                 elif isinstance(compelete_pos_map[f"{pos_letters[j]}"][i],Queen):
                     if compelete_pos_map[f"{pos_letters[j]}"][i].color == "b":
-                        screen.blit(pg.transform.scale(pg.image.load('./img/black_queen.png'),(70,70)),ll)
+                        screen.blit(pg.transform.scale(pg.image.load('./img/black_queen.png'),scale),ll)
                     else :
-                        screen.blit(pg.transform.scale(pg.image.load('./img/white_queen.png'),(70,70)),ll)
+                        screen.blit(pg.transform.scale(pg.image.load('./img/white_queen.png'),scale),ll)
                 elif isinstance(compelete_pos_map[f"{pos_letters[j]}"][i],Knight):
                     if compelete_pos_map[f"{pos_letters[j]}"][i].color == "b":
-                        screen.blit(pg.transform.scale(pg.image.load('./img/black_knight.png'),(70,70)),ll)
+                        screen.blit(pg.transform.scale(pg.image.load('./img/black_knight.png'),scale),ll)
                     else :
-                        screen.blit(pg.transform.scale(pg.image.load('./img/white_knight.png'),(70,70)),ll)
+                        screen.blit(pg.transform.scale(pg.image.load('./img/white_knight.png'),scale),ll)
                 elif isinstance(compelete_pos_map[f"{pos_letters[j]}"][i],Rook):
                     if compelete_pos_map[f"{pos_letters[j]}"][i].color == "b":
-                        screen.blit(pg.transform.scale(pg.image.load('./img/black_rook.png'),(70,70)),ll)
+                        screen.blit(pg.transform.scale(pg.image.load('./img/black_rook.png'),scale),ll)
                     else :
-                        screen.blit(pg.transform.scale(pg.image.load('./img/white_rook.png'),(70,70)),ll)
+                        screen.blit(pg.transform.scale(pg.image.load('./img/white_rook.png'),scale),ll)
                 y += 75
             x += 75
     pg.display.update()
@@ -158,7 +163,6 @@ while True :
         turn = "black"
         
     else :
-        # print("\n AI move V")
         mv = stc.get_best_move_time(1000)
         en_passant_flag = stc.will_move_be_a_capture(f"{mv[0:2]}{mv[2:]}")
         if en_passant_flag == "EN_PASSANT":
