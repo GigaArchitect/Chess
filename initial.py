@@ -71,12 +71,14 @@ clock = pg.time.Clock()
 board_surface = pg.transform.scale(board_surface,(600,600))
 turn = "white"
 while True :
+    
     for event in pg.event.get():
         if event.type == pg.QUIT:
             pg.quit()
     
     screen.blit(board_surface,(0,0))
     x = 0
+    
     for i in range(8):
             y = 0
             for j in range(8):
@@ -154,6 +156,7 @@ while True :
 
         change_pos(cur,dis)
         turn = "black"
+        
     else :
         # print("\n AI move V")
         mv = stc.get_best_move_time(1000)
@@ -163,4 +166,6 @@ while True :
         stc.make_moves_from_current_position([mv])
         change_pos(mv[0:2],mv[2:])
         turn = "white"
+        
+        #current porblems are (screen tearing, screan goes black when overlayed)
         
