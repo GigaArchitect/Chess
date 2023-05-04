@@ -64,13 +64,14 @@ for i in range(8): #char
 print_board()
 
 pg.init()
-screen = pg.display.set_mode((600,700))
+screen = pg.display.set_mode((700,700))
 pg.display.set_caption("Chess")
 board_surface = pg.image.load('./img/board.png')
 clock = pg.time.Clock()
 board_surface = pg.transform.scale(board_surface,(600,600))
 
 letters = pg.transform.scale(pg.image.load('./img/text.png'),(600,60))
+numbers = pg.transform.scale(pg.image.load('./img/numbers.png'),(35,600))
 
 turn = "white"
 while True :
@@ -81,6 +82,7 @@ while True :
     
     screen.blit(board_surface,(0,0))
     screen.blit(letters, (0,600))
+    screen.blit(numbers, (600,0))
     x = 0
     
     for i in range(8):
