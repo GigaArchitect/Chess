@@ -1,7 +1,7 @@
 import pygame as pg
 import stockfish as st 
 from sys import exit
-stc = st.Stockfish(path="/usr/bin/stockfish")
+stc = st.Stockfish(path="/usr/games/stockfish")
 stc.update_engine_parameters({"Hash": 1024, "UCI_Chess960": "true"})
 # elo_rat = int(input("Enter The ELO Rating You Find Yourself Comfortable With : "))
 stc.set_elo_rating(1000)

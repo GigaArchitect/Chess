@@ -7,8 +7,20 @@ from rook import Rook
 import stockfish as st 
 import pygame as pg
 from sys import exit
+from subprocess import check_output
 
-stc = st.Stockfish(path="/usr/bin/stockfish")
+
+Engine_Path = str()
+
+try: 
+    temp = check_output("which stockfish", shell=True)
+    Engine_Path = temp.decode("utf-8").replace("\n", "")
+except:
+    print("Install StockFish First")
+
+print(Engine_Path)
+
+stc = st.Stockfish(path=Engine_Path)
 stc.update_engine_parameters({"Hash": 1024, "UCI_Chess960": "true"})
 # elo_rat = int(input("Enter The ELO Rating You Find Yourself Comfortable With : "))
 stc.set_elo_rating(1000)
