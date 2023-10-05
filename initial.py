@@ -8,15 +8,14 @@ import stockfish as st
 import pygame as pg
 from sys import exit
 from subprocess import check_output
-
-
+# check if Engine Exist
 Engine_Path = str()
-
 try: 
     temp = check_output("which stockfish", shell=True)
     Engine_Path = temp.decode("utf-8").replace("\n", "")
 except:
     print("Install StockFish First")
+    raise FileNotFoundError("Can't locate stockfish binaries")
 
 print(Engine_Path)
 
