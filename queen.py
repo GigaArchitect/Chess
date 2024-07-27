@@ -1,6 +1,8 @@
-pos_letters = ['a','b','c','d','e','f','g','h']
-class Queen :
-    def __init__(self,color,position) :
+pos_letters = ["a", "b", "c", "d", "e", "f", "g", "h"]
+
+
+class Queen:
+    def __init__(self, color, position):
         self.color = str(color)
         self.position = position
 
@@ -10,48 +12,52 @@ class Queen :
         else:
             return "Q"
 
-    def move(self,current_pos):
+    def move(self, current_pos):
         moves = []
         ch = current_pos[0]
         nm = int(current_pos[1])
-        #Bishop Moves
+        # Bishop Moves
         for i in range(9):
-            if pos_letters.index(ch)+i > 7 or nm+i > 8 :
+            if pos_letters.index(ch) + i > 7 or nm + i > 8:
                 continue
             moves.append(f"{pos_letters[pos_letters.index(ch)+i]}{nm+i}")
         for i in range(9):
-            if pos_letters.index(ch)-i < 0 or nm-i < 1 :
+            if pos_letters.index(ch) - i < 0 or nm - i < 1:
                 continue
             moves.append(f"{pos_letters[pos_letters.index(ch)-i]}{nm-i}")
         for i in range(9):
-            if pos_letters.index(ch)+i > 7 or nm-i < 1 :
+            if pos_letters.index(ch) + i > 7 or nm - i < 1:
                 continue
             moves.append(f"{pos_letters[pos_letters.index(ch)+i]}{nm-i}")
         for i in range(9):
-            if pos_letters.index(ch)-i < 0 or nm+i > 8 :
+            if pos_letters.index(ch) - i < 0 or nm + i > 8:
                 continue
             moves.append(f"{pos_letters[pos_letters.index(ch)-i]}{nm+i}")
-        #rook moves
-        #Forward
+        # rook moves
+        # Forward
         for i in range(9):
-            if nm + i > 8 :
+            if nm + i > 8:
                 continue
             moves.append(f"{pos_letters[pos_letters.index(ch)]}{nm+i}")
-            #Back
+            # Back
         for i in range(9):
-            if nm - i < 1 :
+            if nm - i < 1:
                 continue
             moves.append(f"{pos_letters[pos_letters.index(ch)]}{nm-i}")
-            #Right
+            # Right
         for i in range(9):
-            if pos_letters.index(ch)+i > 7 :
+            if pos_letters.index(ch) + i > 7:
                 continue
             moves.append(f"{pos_letters[pos_letters.index(ch)+i]}{nm}")
-            #left
+            # left
         for i in range(9):
-            if pos_letters.index(ch)+i < 0 :
+            if pos_letters.index(ch) + i < 0:
                 continue
             moves.append(f"{pos_letters[pos_letters.index(ch)-i]}{nm}")
-        
+
         return moves
 
+    def draw(self):
+        if self.color == "w":
+            return "white_queen"
+        return "black_queen"

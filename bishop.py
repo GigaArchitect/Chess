@@ -1,7 +1,9 @@
-pos_letters = ['a','b','c','d','e','f','g','h']
-class Bishop :
+pos_letters = ["a", "b", "c", "d", "e", "f", "g", "h"]
 
-    def __init__(self,color,position) :
+
+class Bishop:
+
+    def __init__(self, color, position):
         self.color = color
         self.position = position
 
@@ -10,25 +12,30 @@ class Bishop :
             return "b"
         else:
             return "B"
-    
-    def move(self,current_pos):
+
+    def move(self, current_pos):
         moves = []
         ch = current_pos[0]
         nm = int(current_pos[1])
         for i in range(9):
-            if pos_letters.index(ch)+i > 7 or nm+i > 8 :
+            if pos_letters.index(ch) + i > 7 or nm + i > 8:
                 continue
             moves.append(f"{pos_letters[pos_letters.index(ch)+i]}{nm+i}")
         for i in range(9):
-            if pos_letters.index(ch)-i < 0 or nm-i < 1 :
+            if pos_letters.index(ch) - i < 0 or nm - i < 1:
                 continue
             moves.append(f"{pos_letters[pos_letters.index(ch)-i]}{nm-i}")
         for i in range(9):
-            if pos_letters.index(ch)+i > 7 or nm-i < 1 :
+            if pos_letters.index(ch) + i > 7 or nm - i < 1:
                 continue
             moves.append(f"{pos_letters[pos_letters.index(ch)+i]}{nm-i}")
         for i in range(9):
-            if pos_letters.index(ch)-i < 0 or nm+i > 8 :
+            if pos_letters.index(ch) - i < 0 or nm + i > 8:
                 continue
             moves.append(f"{pos_letters[pos_letters.index(ch)-i]}{nm+i}")
         return moves
+
+    def draw(self):
+        if self.color == "w":
+            return "white_bishop"
+        return "black_bishop"
