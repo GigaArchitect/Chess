@@ -152,7 +152,8 @@ while True:
                 screen.blit(
                     pg.transform.scale(
                         pg.image.load(
-                            f"./img/{compelete_pos_map[f'{pos_letters[j]}'][i].draw()}.png"
+                            f"./img/{compelete_pos_map[f'{pos_letters[j]}']
+                                     [i].draw()}.png"
                         ),
                         scale,
                     ),
@@ -164,16 +165,18 @@ while True:
     clock.tick(60)
 
     if turn == "white":
-        cur = input("Enter Your position Before change 2chars like -- >[d2] : ")
+        cur = input("Enter piece position 2 chars like --> [d2] : ")
         sug_pei = compelete_pos_map[cur[0]][abs(int(cur[1]) - 1 - 7)]
         valid = []
-        for i in sug_pei.move(sug_pei.position):
-            if stc.is_move_correct(f"{cur}{i}"):
-                valid.append(i)
-            else:
-                continue
+        try:
+            for i in sug_pei.move(sug_pei.position):
+                if stc.is_move_correct(f"{cur}{i}"):
+                    valid.append(i)
+        except AttributeError:
+            print("no piece at that position")
+
         print(valid)
-        dis = input("Enter Distenation : ")
+        dis = input("Enter Distenation 2 chars like --> [d4]: ")
 
         if not stc.is_move_correct(f"{cur}{dis}"):
             print("not a valid move")
@@ -183,7 +186,14 @@ while True:
         # check for castle move
         if f"{cur}{dis}" == "e1h1":
             compelete_pos_map["h"][abs(int(1) - 1 - 7)] = None
+            compelete_pos_map["e"][abs(int(1) - 1 - 7)] = None
             compelete_pos_map["f"][abs(int(1) - 1 - 7)] = Rook("w", "f1")
+            compelete_pos_map["g"][abs(int(1) - 1 - 7)] = King("w", "c1")
+        if f"{cur}{dis}" == "e1a1":
+            compelete_pos_map["e"][abs(int(1) - 1 - 7)] = None
+            compelete_pos_map["a"][abs(int(1) - 1 - 7)] = None
+            compelete_pos_map["d"][abs(int(1) - 1 - 7)] = Rook("w", "g1")
+            compelete_pos_map["c"][abs(int(1) - 1 - 7)] = King("w", "f1")
 
         en_passant_flag = stc.will_move_be_a_capture(f"{cur}{dis}")
         if en_passant_flag == "EN_PASSANT":
@@ -192,7 +202,9 @@ while True:
         stc.make_moves_from_current_position([f"{cur}{dis}"])
 
         if f"{cur}{dis}" == "e1h1":
-            change_pos(cur, "g1")
+            turn = "black"
+            continue
+        if f"{cur}{dis}" == "e1a1":
             turn = "black"
             continue
 
@@ -206,6 +218,14 @@ while True:
             compelete_pos_map[f"{mv[2]}"][abs(int(mv[3]) - 1 - 7) + 1] = None
         stc.make_moves_from_current_position([mv])
         change_pos(mv[0:2], mv[2:])
+        if f"{mv[0:2]}{mv[2:]}" == "e8h8":
+            compelete_pos_map["h"][abs(int(8) - 1 - 7)] = None
+            compelete_pos_map["e"][abs(int(8) - 1 - 7)] = None
+            compelete_pos_map["f"][abs(int(8) - 1 - 7)] = Rook("b", "f8")
+            compelete_pos_map["g"][abs(int(8) - 1 - 7)] = King("b", "c8")
+        if f"{mv[0:2]}{mv[2:]}" == "e8a8":
+            compelete_pos_map["e"][abs(int(8) - 1 - 7)] = None
+            compelete_pos_map["a"][abs(int(8) - 1 - 7)] = None
+            compelete_pos_map["d"][abs(int(8) - 1 - 7)] = Rook("b", "g8")
+            compelete_pos_map["c"][abs(int(8) - 1 - 7)] = King("b", "f8")
         turn = "white"
-
-        # current porblems are (screen tearing, screan goes black when overlayed)
